@@ -7,7 +7,6 @@
         <template v-slot:activator="{ on }">
           <div v-on="on">
             <span class="mr-1">&copy; Jason Kim</span>
-            <v-icon>mdi-email</v-icon>
           </div>
         </template>
         <span>kimsj9484@gmail.com</span>
