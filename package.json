@@ -1,5 +1,5 @@
 {
-  "name": "lyrics-viewer-v2",
+  "name": "lyrics-viewer",
   "version": "1.0.0",
   "description": "Music lyrics viewer",
   "author": "sunjae-kim",
@@ -8,14 +8,20 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "heroku-postbuild": "yarn build"
   },
   "dependencies": {
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
+    "axios": "^0.19.0",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.9.1"
+  },
+  "engines": {
+    "node": "12.14.0",
+    "yarn": "1.17.3"
   }
 }

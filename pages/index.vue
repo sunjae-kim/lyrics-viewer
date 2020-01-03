@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-form>
+    <v-form @submit.prevent="">
       <v-text-field
         id="search-input"
         label="가사 검색"
