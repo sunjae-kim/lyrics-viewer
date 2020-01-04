@@ -42,7 +42,7 @@ export default {
 }
 @media (min-width: 768px) {
   .container {
-    width: 750px;
+    width: 750px!important;
   }
 }
 </style>
