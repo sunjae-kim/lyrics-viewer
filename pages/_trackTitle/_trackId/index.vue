@@ -1,45 +1,37 @@
 <template>
-  <v-container class="text-center">
-    <div :style="style">
-      <h2 class="font-weight-regular">{{ track.info.trackTitle }}</h2>
-      <div class="artists mt-3 mb-10">
+  <v-container class="track-detail text-center">
+    <v-app-bar fixed>
+      <v-toolbar-title
+        ><span class="mr-2">{{ track.info.trackTitle }}</span> ⎯⎯
         <span
-          class="pr-3"
+          class="ml-2"
           v-for="artist in track.info.artists"
           :key="artist.artistId"
         >
           {{ artist.artistName }}
-        </span>
-      </div>
+        </span></v-toolbar-title
+      >
+      <v-spacer></v-spacer>
+      <v-btn @click="$router.push('/')" icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+    </v-app-bar>
+    <div :style="style">
       <span class="lyrics font-weight-light">{{ track.lyrics.lyric }}</span>
     </div>
-
-    <div class="fixed-btns">
-      <v-btn
-        :small="windowSize.x < 768"
-        class="fixed-btn mr-1"
-        fab
-        @click="scaleUp"
-      >
-        <v-icon>mdi-plus</v-icon>
-      </v-btn>
-      <v-btn
-        :small="windowSize.x < 768"
-        class="fixed-btn"
-        fab
-        @click="scaleDown"
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
-    </div>
+    <SizingButtons></SizingButtons>
   </v-container>
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import { getTrackInfo, getTrackLyrics } from '@/api';
+import SizingButtons from '@/components/SizingButtons';
 
 export default {
+  components: {
+    SizingButtons,
+  },
   computed: {
     ...mapState({
       track: state => state.tracks.currentTrack,
@@ -47,12 +39,6 @@ export default {
     }),
     ...mapGetters({
       style: 'sizes/style',
-    }),
-  },
-  methods: {
-    ...mapActions({
-      scaleUp: 'sizes/scaleUp',
-      scaleDown: 'sizes/scaleDown',
     }),
   },
   async middleware({ store, params }) {
@@ -80,10 +66,5 @@ export default {
 }
 .artists > span:last-child {
   padding: 0px !important;
-}
-.fixed-btns {
-  position: fixed;
-  bottom: 15px;
-  z-index: 5;
 }
 </style>

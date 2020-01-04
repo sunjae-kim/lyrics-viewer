@@ -1,16 +1,20 @@
 <template>
   <v-container>
-    <v-form @submit.prevent="">
-      <v-text-field
-        id="search-input"
-        label="가사 검색"
-        prepend-icon="mdi-music-note-eighth"
-        @input="onSearchInput"
-        :value="query"
-        :loading="loading"
-        clearable
-      ></v-text-field>
-    </v-form>
+    <v-app-bar fixed>
+      <div style="width: 726px">
+        <v-text-field
+          class="mt-7"
+          id="search-input"
+          label="가사 검색"
+          @input="onSearchInput"
+          :value="query"
+          :loading="loading"
+          clearable
+          autofocus
+        ></v-text-field>
+      </div>
+    </v-app-bar>
+
     <section v-if="loading">
       <TrackListItemLoader
         v-for="n in numOfLoader"
@@ -57,3 +61,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.v-toolbar__content {
+  justify-content: center;
+}
+</style>

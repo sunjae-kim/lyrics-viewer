@@ -3,46 +3,32 @@ export const state = () => ({
     x: 0,
     y: 0,
   },
-  rawStyle: {
-    fontSize: 1,
-    lineHeight: 50,
-  },
+  fontSize: 0,
+  lineHeight: 0,
 });
 
 export const getters = {
-  style: ({ rawStyle }) => ({
-    fontSize: rawStyle.fontSize + 'rem!important',
-    lineHeight: rawStyle.lineHeight + 'px!important',
+  style: state => ({
+    fontSize: 1 + state.fontSize * 0.015 + 'rem!important',
+    lineHeight: 55 + state.lineHeight * 1 + 'px!important',
   }),
+  isMobile: state => state.windowSize.x < 768,
 };
 
 export const mutations = {
   setWindowSize(state, windowSize) {
     state.windowSize = windowSize;
   },
-  setRawStyle(state, rawStyle) {
-    state.rawStyle = rawStyle;
+  setFontSize(state, fontSize) {
+    state.fontSize = fontSize;
+  },
+  setLineHeight(state, lineHeight) {
+    state.lineHeight = lineHeight;
   },
 };
 
 export const actions = {
   onResize({ commit }) {
     commit('setWindowSize', { x: window.innerWidth, y: window.innerHeight });
-  },
-  scaleUp({ commit, state }) {
-    if (state.rawStyle.lineHeight < 60) {
-      commit('setRawStyle', {
-        fontSize: state.rawStyle.fontSize + 0.08,
-        lineHeight: state.rawStyle.lineHeight + 2,
-      });
-    }
-  },
-  scaleDown({ commit, state }) {
-    if (state.rawStyle.lineHeight > 40) {
-      commit('setRawStyle', {
-        fontSize: state.rawStyle.fontSize - 0.08,
-        lineHeight: state.rawStyle.lineHeight - 2,
-      });
-    }
   },
 };

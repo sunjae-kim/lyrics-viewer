@@ -45,6 +45,6 @@ export default {
 }
 .track-list-title {
   word-break: break-word;
-  font-size: calc(85% + 0.2vw);
+  font-size: calc(80% + 0.2vw);
 }
 </style>
