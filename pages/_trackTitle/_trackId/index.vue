@@ -2,7 +2,7 @@
   <v-container class="track-detail text-center">
     <v-app-bar fixed>
       <v-toolbar-title
-        ><span class="mr-2">{{ track.info.trackTitle }}</span> ⎯⎯
+        ><span class="mr-2">{{ track.info.trackTitle }}</span> ⎯
         <span
           class="ml-2"
           v-for="artist in track.info.artists"
@@ -19,18 +19,18 @@
     <div :style="style">
       <span class="lyrics font-weight-light">{{ track.lyrics.lyric }}</span>
     </div>
-    <SizingButtons></SizingButtons>
+    <SizingButton></SizingButton>
   </v-container>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 import { getTrackInfo, getTrackLyrics } from '@/api';
-import SizingButtons from '@/components/SizingButtons';
+import SizingButton from '@/components/SizingButton';
 
 export default {
   components: {
-    SizingButtons,
+    SizingButton,
   },
   computed: {
     ...mapState({
