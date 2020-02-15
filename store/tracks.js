@@ -54,7 +54,7 @@ export const actions = {
           trackList.filter(track => track.hasLyric),
         );
         commit('setLoading', false);
-      }, 200),
+      }, 500),
     );
   },
 };
