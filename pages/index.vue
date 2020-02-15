@@ -1,16 +1,15 @@
 <template>
-  <v-container>
+  <v-container v-cloak>
     <v-app-bar fixed>
       <div style="width: 726px">
         <v-text-field
           class="mt-7"
           id="search-input"
-          label="가사 검색"
+          label="가수 및 노래 제목으로 검색"
           @input="onSearchInput"
           :value="query"
           :loading="loading"
           clearable
-          autofocus
         ></v-text-field>
       </div>
     </v-app-bar>

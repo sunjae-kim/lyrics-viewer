@@ -1,19 +1,6 @@
 <template>
   <v-app v-cloak v-resize="onResize">
     <nuxt />
-    <v-footer class="text-center" fixed>
-      <v-spacer></v-spacer>
-      <v-tooltip v-model="showTooltip" top>
-        <template v-slot:activator="{ on }">
-          <div v-on="on">
-            <span @click="showTooltip = !showTooltip" class="mr-1"
-              >&copy; Jason Kim</span
-            >
-          </div>
-        </template>
-        <span>kimsj9484@gmail.com</span>
-      </v-tooltip>
-    </v-footer>
   </v-app>
 </template>
 
@@ -21,9 +8,6 @@
 import { mapActions } from 'vuex';
 
 export default {
-  data() {
-    return { showTooltip: false };
-  },
   methods: {
     ...mapActions({
       onResize: 'sizes/onResize',
@@ -42,7 +26,7 @@ export default {
 }
 @media (min-width: 768px) {
   .container {
-    width: 750px!important;
+    width: 750px !important;
   }
 }
 </style>
