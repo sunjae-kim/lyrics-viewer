@@ -5,8 +5,7 @@ export const getTrackList = async query => {
   const { data } = await axios.get(
     encodeURI(`${API_SERVER_URL}/getTrackList?query=${query}`),
   );
-
-  return data;
+  return data ? data : [];
 };
 
 export const getTrackLyrics = async trackId => {

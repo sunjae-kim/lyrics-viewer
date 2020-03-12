@@ -36,25 +36,26 @@ export const actions = {
     commit('setCurrentTrack', { info: track, lyrics });
     this.app.router.push(encodeURI(`/${trackTitle}/${trackId}`));
   },
-  async onSearchInput({ commit, state }, query) {
+  async onSearchInput({ commit, state, dispatch }, query) {
     commit('setQuery', query);
+    if (!query) return dispatch('setTrackList', []);
     if (!state.loading) commit('setLoading', true);
     if (state.timeout) clearTimeout(state.timeout);
-    commit(
-      'setTimeout',
-      setTimeout(async () => {
-        const trackList = await getTrackList(state.query);
-        if (!state.query || !trackList.length) {
-          commit('setTrackList', []);
-          commit('setLoading', false);
-          return;
-        }
-        commit(
+    const timeout = setTimeout(async () => {
+      const trackList = await getTrackList(state.query);
+      if (timeout === state.timeout) {
+        dispatch(
           'setTrackList',
           trackList.filter(track => track.hasLyric),
         );
-        commit('setLoading', false);
-      }, 500),
-    );
+      }
+    }, 200);
+    commit('setTimeout', timeout);
+  },
+  async setTrackList({ commit, state }, trackList) {
+    commit('setTrackList', trackList);
+    commit('setLoading', false);
+    commit('setTimeout', null);
+    clearTimeout(state.timeout);
   },
 };
