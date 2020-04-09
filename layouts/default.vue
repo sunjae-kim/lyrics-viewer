@@ -1,5 +1,5 @@
 <template>
-  <v-app v-cloak v-resize="onResize">
+  <v-app v-resize="onResize">
     <nuxt />
   </v-app>
 </template>

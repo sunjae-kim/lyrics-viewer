@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container v-cloak>
     <v-app-bar fixed>
       <div style="width: 726px">
         <v-text-field

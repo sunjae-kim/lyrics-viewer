@@ -58,6 +58,7 @@ export default {
   font-family: sans-serif;
   white-space: pre-wrap;
   color: rgba(255, 255, 255, 0.8);
+  word-break: keep-all;
 }
 .artists {
   display: flex;
