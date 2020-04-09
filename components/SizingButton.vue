@@ -32,7 +32,7 @@
           <v-col>
             <h3 class="py-3">Line Spacing</h3>
             <v-btn
-              @click="lineHeight > -20 && setLineHeight(lineHeight - 5)"
+              @click="marginBottom > -20 && setMarginBottom(marginBottom - 5)"
               :small="isMobile"
               dark
               fab
@@ -43,7 +43,7 @@
             </v-btn>
             <v-btn
               :class="{ 'ml-3': !isMobile }"
-              @click="lineHeight < 20 && setLineHeight(lineHeight + 5)"
+              @click="marginBottom < 20 && setMarginBottom(marginBottom + 5)"
               :small="isMobile"
               dark
               fab
@@ -71,7 +71,7 @@ export default {
     ...mapState({
       track: state => state.tracks.currentTrack,
       fontSize: state => state.sizes.fontSize,
-      lineHeight: state => state.sizes.lineHeight,
+      marginBottom: state => state.sizes.marginBottom,
     }),
     ...mapGetters({
       isMobile: 'sizes/isMobile',
@@ -80,7 +80,7 @@ export default {
   methods: {
     ...mapMutations({
       setFontSize: 'sizes/setFontSize',
-      setLineHeight: 'sizes/setLineHeight',
+      setMarginBottom: 'sizes/setMarginBottom',
     }),
   },
 };

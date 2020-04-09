@@ -16,8 +16,15 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
     </v-app-bar>
-    <div :style="style">
-      <span class="lyrics font-weight-light">{{ track.lyrics.lyric }}</span>
+    <div :style="{ fontSize: style.fontSize }">
+      <p
+        v-for="(line, index) in track.lyrics.lyric.split('\n')"
+        class="lyrics"
+        :key="`${index}|${line}`"
+        :style="{ marginBottom: style.marginBottom }"
+      >
+        {{ line }}
+      </p>
     </div>
     <SizingButton></SizingButton>
   </v-container>
@@ -56,16 +63,7 @@ export default {
 <style scoped>
 .lyrics {
   font-family: sans-serif;
-  white-space: pre-wrap;
   color: rgba(255, 255, 255, 0.8);
   word-break: keep-all;
-}
-.artists {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.artists > span:last-child {
-  padding: 0px !important;
 }
 </style>
