@@ -31,9 +31,4 @@ app.get('/getTrackLyrics', async (req, res) => {
   res.send(response.data.response.result.trackInformation);
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`the server is listening on PORT ${PORT}.`);
-});
-
 exports.app = functions.https.onRequest(app);

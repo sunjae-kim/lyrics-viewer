@@ -1,21 +1,21 @@
-import axios from 'axios';
-const API_SERVER_URL = 'https://lyrics-viewer-server.herokuapp.com';
+import axios from "axios";
+const SERVER_URI = process.env.SERVER_URI;
 
-export const getTrackList = async query => {
+export const getTrackList = async (query) => {
   const { data } = await axios.get(
-    encodeURI(`${API_SERVER_URL}/getTrackList?query=${query}`),
+    encodeURI(`${SERVER_URI}/getTrackList?query=${query}`)
   );
   return data ? data : [];
 };
 
-export const getTrackLyrics = async trackId => {
+export const getTrackLyrics = async (trackId) => {
   const { data } = await axios.get(
-    encodeURI(`${API_SERVER_URL}/getTrackLyrics?trackId=${trackId}`),
+    encodeURI(`${SERVER_URI}/getTrackLyrics?trackId=${trackId}`)
   );
   return data;
 };
 
 export const getTrackInfo = async (query, trackId) => {
   const data = await getTrackList(query);
-  return data.find(track => track.trackId == trackId);
+  return data.find((track) => track.trackId == trackId);
 };
