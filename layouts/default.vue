@@ -1,13 +1,21 @@
 <template>
   <v-app v-resize="onResize">
-    <nuxt />
+    <nuxt v-if="isMounted" />
+    <Loader v-else />
   </v-app>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import Loader from '@/components/Loader';
 
 export default {
+  components: { Loader },
+  data() {
+    return {
+      isMounted: false,
+    };
+  },
   methods: {
     ...mapActions({
       onResize: 'sizes/onResize',
@@ -15,6 +23,7 @@ export default {
   },
   mounted() {
     this.onResize();
+    this.isMounted = true;
   },
 };
 </script>
