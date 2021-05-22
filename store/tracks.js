@@ -1,4 +1,4 @@
-import { getTrackList, getTrackLyrics } from '@/api';
+import { getTrackList, getTrackLyrics, getTrackInfo } from '@/api';
 
 export const state = () => ({
   query: '',
@@ -30,12 +30,6 @@ export const mutations = {
 };
 
 export const actions = {
-  async onRedirectToTrackDetail({ commit }, track) {
-    const { trackTitle, trackId } = track;
-    const lyrics = await getTrackLyrics(trackId);
-    commit('setCurrentTrack', { info: track, lyrics });
-    this.app.router.push(encodeURI(`/${trackTitle}/${trackId}`));
-  },
   async onSearchInput({ commit, state, dispatch }, query) {
     commit('setQuery', query);
     if (!query) return dispatch('setTrackList', []);
@@ -57,5 +51,12 @@ export const actions = {
     commit('setLoading', false);
     commit('setTimeout', null);
     clearTimeout(state.timeout);
+  },
+  async setTrack({ state, commit }, { trackTitle, trackId }) {
+    if (!state.loading) commit('setLoading', true);
+    const info = await getTrackInfo(trackTitle, trackId);
+    const lyrics = await getTrackLyrics(trackId);
+    commit('setCurrentTrack', { info, lyrics });
+    commit('setLoading', false);
   },
 };

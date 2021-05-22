@@ -1,10 +1,9 @@
 <template>
-  <v-card
-    @click="onRedirectToTrackDetail(track)"
-    dark
-    class="mb-3 track-list-item"
-  >
-    <div class="d-flex flex-no-wrap justify-space-between">
+  <v-card @click="onClick" dark class="mb-3 track-list-item">
+    <div class="d-flex flex-no-wrap">
+      <v-avatar class="ma-3" size="125" tile>
+        <v-img :src="track.album.imageUrl"></v-img>
+      </v-avatar>
       <div>
         <v-card-title
           class="track-list-title font-weight-regular"
@@ -17,24 +16,21 @@
           </span>
         </v-card-subtitle>
       </div>
-      <v-avatar class="ma-3" size="125" tile>
-        <v-img :src="track.album.imageUrl"></v-img>
-      </v-avatar>
     </div>
   </v-card>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 export default {
   name: 'TrackListItem',
   props: {
     track: Object,
   },
   methods: {
-    ...mapActions({
-      onRedirectToTrackDetail: 'tracks/onRedirectToTrackDetail',
-    }),
+    onClick: function() {
+      const { trackTitle, trackId } = this.track;
+      this.$router.push(encodeURI(`/${trackTitle}/${trackId}`));
+    },
   },
 };
 </script>

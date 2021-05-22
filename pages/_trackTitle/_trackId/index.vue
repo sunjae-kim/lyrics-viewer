@@ -1,7 +1,8 @@
 <template>
   <v-container class="track-detail text-center">
     <v-app-bar fixed>
-      <v-toolbar-title
+      <v-skeleton-loader v-if="loading" width="300" type="sentences" />
+      <v-toolbar-title v-else
         ><span class="mr-2">{{ track.info.trackTitle }}</span> ⎯
         <span
           class="ml-2"
@@ -16,7 +17,7 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
     </v-app-bar>
-    <div :style="{ fontSize: style.fontSize }">
+    <div v-if="!loading" :style="{ fontSize: style.fontSize }">
       <p
         v-for="(line, index) in track.lyrics.lyric.split('\n')"
         class="lyrics"
@@ -26,36 +27,33 @@
         {{ line }}
       </p>
     </div>
-    <SizingButton></SizingButton>
+    <SizingButton />
+    <Loader v-if="loading" />
   </v-container>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import { getTrackInfo, getTrackLyrics } from '@/api';
+import Loader from '@/components/Loader';
 import SizingButton from '@/components/SizingButton';
 
 export default {
+  async created() {
+    const { trackTitle, trackId } = this.$route.params;
+    this.$store.dispatch('tracks/setTrack', { trackTitle, trackId });
+  },
   components: {
     SizingButton,
+    Loader,
   },
   computed: {
     ...mapState({
       track: state => state.tracks.currentTrack,
-      windowSize: state => state.sizes.windowSize,
+      loading: state => state.tracks.loading,
     }),
     ...mapGetters({
       style: 'sizes/style',
     }),
-  },
-  async middleware({ store, params }) {
-    if (process.server) {
-      const { trackTitle, trackId } = params;
-      const info = await getTrackInfo(trackTitle, trackId);
-      const lyrics = await getTrackLyrics(trackId);
-      const [setCurrentTrack] = store._mutations['tracks/setCurrentTrack'];
-      setCurrentTrack({ info, lyrics });
-    }
   },
 };
 </script>
