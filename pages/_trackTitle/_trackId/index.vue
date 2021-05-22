@@ -58,7 +58,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .lyrics {
   font-family: sans-serif;
   color: rgba(255, 255, 255, 0.8);
