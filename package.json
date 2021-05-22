@@ -18,10 +18,13 @@
     "nuxt": "^2.0.0"
   },
   "devDependencies": {
-    "@nuxtjs/vuetify": "^1.9.1"
+    "@nuxtjs/vuetify": "^1.11.3"
+  },
+  "resolutions": {
+    "@nuxtjs/vuetify/**/sass": "1.32.12"
   },
   "engines": {
-    "node": "12.14.0",
-    "yarn": "1.22.4"
+    "node": "12.*",
+    "yarn": "1.22.10"
   }
 }
