@@ -24,7 +24,7 @@
     "@nuxtjs/vuetify/**/sass": "1.32.12"
   },
   "engines": {
-    "node": "12.*",
+    "node": "16.*",
     "yarn": "1.22.*"
   }
 }
