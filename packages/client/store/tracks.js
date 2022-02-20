@@ -1,4 +1,8 @@
-import { getTrackList, getTrackLyrics, getTrackInfo } from '@/api';
+import {
+  getTrackList,
+  getTrackLyrics,
+  getTrackInfo,
+} from '@/api';
 
 export const state = () => ({
   query: '',
@@ -40,7 +44,7 @@ export const actions = {
       if (timeout === state.timeout) {
         dispatch(
           'setTrackList',
-          trackList.filter(track => track.hasLyric),
+          trackList.filter((track) => track.hasLyric),
         );
       }
     }, 200);

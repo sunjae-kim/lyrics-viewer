@@ -1,10 +1,10 @@
-# lyrics-viewer-v2
+# Lyrics Viewer
 
 > Music lyrics viewer
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 $ yarn install
 

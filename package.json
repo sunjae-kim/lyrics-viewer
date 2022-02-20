@@ -1,30 +1,10 @@
 {
-  "name": "lyrics-viewer",
-  "version": "1.0.0",
-  "description": "Music lyrics viewer",
-  "author": "sunjae-kim",
+  "name": "root",
   "private": true,
-  "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
-    "deploy": "yarn generate && firebase deploy --only hosting"
-  },
-  "dependencies": {
-    "@nuxtjs/dotenv": "^1.4.0",
-    "@nuxtjs/pwa": "^3.0.0-0",
-    "axios": "^0.21.2",
-    "nuxt": "^2.0.0"
-  },
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
-    "@nuxtjs/vuetify": "^1.11.3"
-  },
-  "resolutions": {
-    "@nuxtjs/vuetify/**/sass": "1.32.12"
-  },
-  "engines": {
-    "node": "16.*",
-    "yarn": "1.22.*"
+    "lerna": "^4.0.0"
   }
 }
