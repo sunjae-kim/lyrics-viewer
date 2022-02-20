@@ -5,19 +5,21 @@ export default {
   /*
    ** Headers of the page
    */
-  head: {
-    title: 'Lyrics Viewer',
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'description', content: 'Music lyrics viewer' },
-      { name: 'author', content: 'Jason' },
-      { property: 'og:title', content: 'Lyrics Viewer' },
-      { property: 'og:type', content: 'website' },
-      { property: 'og:url', content: 'lyrics.sunjae.kim' },
-      { property: 'og:description', content: 'Music lyrics viewer' },
-    ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+  head() {
+    return {
+      title: 'Lyrics Viewer',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'description', content: 'Music lyrics viewer' },
+        { name: 'author', content: 'Jason' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:url', content: 'https://sunjae.kim' },
+        { property: 'og:description', content: 'Music lyrics viewer' },
+        { property: 'og:title', content: 'Lyrics Viewer' },
+      ],
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    };
   },
   /*
    ** Customize the progress-bar color
