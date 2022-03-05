@@ -3,17 +3,18 @@
   "name": "functions",
   "description": "Cloud Functions for Firebase",
   "scripts": {
-    "serve": "firebase emulators:start --only functions",
-    "shell": "firebase functions:shell",
-    "start": "npm run shell",
+    "serve": "tsc && firebase emulators:start --only functions",
+    "shell": "tsc && firebase functions:shell",
+    "start": "tsc && npm run shell",
     "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
+    "logs": "firebase functions:log",
+    "build": "tsc"
   },
   "engines": {
     "node": "16",
     "yarn": "1.22.17"
   },
-  "main": "index.js",
+  "main": "dist/index.js",
   "dependencies": {
     "axios": "^0.21.2",
     "cors": "^2.8.5",
@@ -24,6 +25,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "@types/morgan": "^1.9.3",
     "firebase-functions-test": "^0.2.0"
   },
   "private": true
