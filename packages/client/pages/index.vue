@@ -27,9 +27,7 @@
         :track="track"
       ></TrackListItem>
     </section>
-    <section v-else>
-      검색 결과가 없습니다..
-    </section>
+    <section v-else>검색 결과가 없습니다..</section>
   </v-container>
 </template>
 
@@ -48,15 +46,13 @@ export default {
       return this.trackList.length || 5;
     },
     ...mapState({
-      query: state => state.tracks.query,
-      loading: state => state.tracks.loading,
-      trackList: state => state.tracks.trackList,
+      query: (state) => state.tracks.query,
+      loading: (state) => state.tracks.loading,
+      trackList: (state) => state.tracks.trackList,
     }),
   },
   methods: {
-    ...mapActions({
-      onSearchInput: 'tracks/onSearchInput',
-    }),
+    ...mapActions({ onSearchInput: 'tracks/onSearchInput' }),
   },
 };
 </script>

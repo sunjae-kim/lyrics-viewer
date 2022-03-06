@@ -2,7 +2,7 @@ import express from 'express';
 import VibeAPI from '../libraries/vibe';
 const router = express.Router();
 
-router.get('/getTrackList', async (req, res) => {
+router.get('/tracks', async (req, res) => {
   const { query } = req.query;
   if (!query) {
     res.status(400).send('query is required');
@@ -19,7 +19,7 @@ router.get('/getTrackList', async (req, res) => {
   res.status(200).send(trackList);
 });
 
-router.get('/getTrackInfo/:trackId', async (req, res) => {
+router.get('/track-info/:trackId', async (req, res) => {
   const { trackId } = req.params;
 
   if (!trackId) {
