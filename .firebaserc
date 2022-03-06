@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "lyrics-viewer": "lyrics-viewer-2",
+    "default": "lyrics-viewer-2"
+  },
+  "targets": {}
+}

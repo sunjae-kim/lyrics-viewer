@@ -1,10 +1,11 @@
-import * as functions from 'firebase-functions';
-import express from 'express';
+import './utils/resolveModulePath';
 import cors from 'cors';
+import express from 'express';
+import * as functions from 'firebase-functions';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import router from './routes';
 import { corsOptions } from './middlewares/cors';
+import router from './routes';
 
 const app = express();
 
