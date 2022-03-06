@@ -1,6 +1,7 @@
 import type { CorsOptions } from 'cors';
 
-const whitelist = ['https://sunjae.kim'];
+const whitelist = ['https://sunjae.kim', 'http://localhost:3000'];
+
 export const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
     if (!origin || whitelist.indexOf(origin) !== -1) {

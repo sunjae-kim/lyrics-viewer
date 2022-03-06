@@ -1,8 +1,4 @@
-import {
-  getTrackList,
-  getTrackLyrics,
-  getTrackInfo,
-} from '@/api';
+import { getTrackList, getTrackInfo, getTrack } from '@/api';
 
 export const state = () => ({
   query: '',
@@ -58,8 +54,8 @@ export const actions = {
   },
   async setTrack({ state, commit }, { trackTitle, trackId }) {
     if (!state.loading) commit('setLoading', true);
-    const info = await getTrackInfo(trackTitle, trackId);
-    const lyrics = await getTrackLyrics(trackId);
+    const info = await getTrack(trackTitle, trackId);
+    const lyrics = await getTrackInfo(trackId);
     commit('setCurrentTrack', { info, lyrics });
     commit('setLoading', false);
   },

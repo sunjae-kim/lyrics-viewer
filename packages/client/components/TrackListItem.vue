@@ -23,13 +23,12 @@
 <script>
 export default {
   name: 'TrackListItem',
-  props: {
-    track: Object,
-  },
+  props: { track: Object },
   methods: {
-    onClick: function() {
-      const { trackTitle, trackId } = this.track;
-      this.$router.push(encodeURI(`/${trackTitle}/${trackId}`));
+    onClick: function () {
+      const { trackId } = this.track;
+      const trackTitle = this.track.trackTitle.replace(/\?/g, '');
+      this.$router.push(`/${trackTitle}/${trackId}`);
     },
   },
 };
