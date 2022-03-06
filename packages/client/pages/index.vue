@@ -46,9 +46,9 @@ export default {
       return this.trackList.length || 5;
     },
     ...mapState({
-      query: (state) => state.tracks.query,
-      loading: (state) => state.tracks.loading,
-      trackList: (state) => state.tracks.trackList,
+      query: state => state.tracks.query,
+      loading: state => state.tracks.loading,
+      trackList: state => state.tracks.trackList,
     }),
   },
   methods: {

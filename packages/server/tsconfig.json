@@ -12,8 +12,13 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "baseUrl": ".",
+    "allowJs": true,
+    "paths": {
+      "#/*": ["../shared/*"]
+    }
   },
-  "exclude": ["node_modules"],
-  "include": ["**/*"]
+  "exclude": ["node_modules", "dist"],
+  "include": ["**/*", "../shared/**/*"]
 }

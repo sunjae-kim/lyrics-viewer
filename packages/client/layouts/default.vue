@@ -12,14 +12,10 @@ import Loader from '@/components/Loader';
 export default {
   components: { Loader },
   data() {
-    return {
-      isMounted: false,
-    };
+    return { isMounted: false };
   },
   methods: {
-    ...mapActions({
-      onResize: 'sizes/onResize',
-    }),
+    ...mapActions({ onResize: 'sizes/onResize' }),
   },
   mounted() {
     this.onResize();

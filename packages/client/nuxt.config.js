@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors';
+import * as path from 'path';
 const { NODE_ENV } = process.env;
 console.log(`current env: ${NODE_ENV}`);
 
@@ -20,6 +21,9 @@ export default {
       { property: 'og:title', content: 'Lyrics Viewer' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+  },
+  alias: {
+    '#': path.resolve(__dirname, '..', 'shared'),
   },
   /*
    ** Customize the progress-bar color
