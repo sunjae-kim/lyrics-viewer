@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import axios from 'axios';
 import { Track, TrackInfo, VibeAPI, VibeAPIResponse } from './type';
 
@@ -11,8 +12,16 @@ const VibeAPI: VibeAPI = {
 
     type Response = VibeAPIResponse<Record<'tracks', Track[]>>;
     const response = await axios.get<Response>(url.href);
+    const { tracks } = response.data.response.result;
 
-    return response.data.response.result.tracks;
+    // remove duplicated tracks
+    const uniqueTracks = _.uniqWith(tracks, (a: Track, b: Track) => {
+      const value = { trackTitle: a.trackTitle, trackArtist: a.artistLinkUrl };
+      const other = { trackTitle: b.trackTitle, trackArtist: b.artistLinkUrl };
+      return _.isEqual(value, other);
+    });
+
+    return uniqueTracks;
   },
   getTrackInfo: async (id: string) => {
     const url = new URL(`${API_URL}/track/${id}/info`);
