@@ -3,10 +3,11 @@
     <v-app-bar fixed>
       <v-skeleton-loader v-if="loading" width="300" type="sentences" />
       <v-toolbar-title v-else
-        ><span class="mr-2">{{ track.info.trackTitle }}</span> ⎯
+        ><span>{{ track.info.trackTitle }}</span>
+        <span class="mx-2">-</span>
         <span
-          class="ml-2"
           v-for="artist in track.info.artists"
+          class="artist-name"
           :key="artist.artistId"
         >
           {{ artist.artistName }}
@@ -17,7 +18,9 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
     </v-app-bar>
-    <div v-if="!loading" :style="{ fontSize: style.fontSize }">
+
+    <Loader v-if="loading" />
+    <div v-else-if="!track.info.isAdult" :style="{ fontSize: style.fontSize }">
       <p
         v-for="(line, index) in track.lyrics.lyric.split('\n')"
         class="lyrics"
@@ -27,8 +30,13 @@
         {{ line }}
       </p>
     </div>
+    <div v-else class="fixed-center alert">
+      <p>청소년 청취불가 노래의 가사는</p>
+      <p>현재 지원하지 않습니다 😭</p>
+      <p class="mt-4"><a @click="$router.push('/')">돌아가기</a></p>
+    </div>
+
     <SizingButton />
-    <Loader v-if="loading" />
   </v-container>
 </template>
 
@@ -38,30 +46,41 @@ import Loader from '@/components/Loader';
 import SizingButton from '@/components/SizingButton';
 
 export default {
+  components: { SizingButton, Loader },
   async created() {
     const { trackTitle, trackId } = this.$route.params;
     this.$store.dispatch('tracks/setTrack', { trackTitle, trackId });
-  },
-  components: {
-    SizingButton,
-    Loader,
   },
   computed: {
     ...mapState({
       track: state => state.tracks.currentTrack,
       loading: state => state.tracks.loading,
     }),
-    ...mapGetters({
-      style: 'sizes/style',
-    }),
+    ...mapGetters({ style: 'sizes/style' }),
   },
 };
 </script>
 
 <style>
-.lyrics {
+/* Override Vuetify */
+.v-application p {
+  margin: 0;
+}
+
+.lyrics,
+.alert {
   font-family: sans-serif;
   color: rgba(255, 255, 255, 0.8);
   word-break: keep-all;
+}
+
+.alert {
+  width: 100%;
+  max-width: 80%;
+}
+
+.artist-name:not(:last-child)::after {
+  display: inline-block;
+  content: ',';
 }
 </style>

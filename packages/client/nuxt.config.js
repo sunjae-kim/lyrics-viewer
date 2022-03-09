@@ -22,9 +22,7 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
-  alias: {
-    '#': path.resolve(__dirname, '..', 'shared'),
-  },
+  alias: { '#': path.resolve(__dirname, '..', 'shared') },
   /*
    ** Customize the progress-bar color
    */
@@ -32,7 +30,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['@/assets/css/main.css'],
   /*
    ** Plugins to load before mounting the App
    */
