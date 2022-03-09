@@ -27,7 +27,10 @@
         :track="track"
       ></TrackListItem>
     </section>
-    <section v-else>검색 결과가 없습니다..</section>
+    <section v-else>
+      <p v-if="query.length">검색 결과가 없습니다.. 😢</p>
+      <p v-else>입력창에 검색어를 입력해주세요 😀</p>
+    </section>
   </v-container>
 </template>
 
