@@ -22,6 +22,7 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
+  ssr: false,
   alias: { '#': path.resolve(__dirname, '..', 'shared') },
   /*
    ** Customize the progress-bar color
@@ -52,7 +53,6 @@ export default {
    ** https://github.com/nuxt-community/vuetify-module
    */
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
     theme: {
       dark: true,
       themes: {

@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import Loader from '@/components/Loader';
+import { mapActions } from 'vuex';
 
 export default {
   components: { Loader },

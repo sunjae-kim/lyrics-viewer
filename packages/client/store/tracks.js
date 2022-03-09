@@ -1,20 +1,12 @@
 import { getTrackList, getTrackInfo, getTrack } from '@/api';
 
 export const state = () => ({
-  query: '',
-  currentTrack: {
-    info: null,
-    lyrics: null,
-  },
+  currentTrack: { info: null, lyrics: null },
   trackList: [],
   loading: false,
-  timeout: null,
 });
 
 export const mutations = {
-  setQuery(state, query) {
-    state.query = query;
-  },
   setCurrentTrack(state, track) {
     state.currentTrack = track;
   },
@@ -24,32 +16,18 @@ export const mutations = {
   setLoading(state, status) {
     state.loading = status;
   },
-  setTimeout(state, timeout) {
-    state.timeout = timeout;
-  },
 };
 
 export const actions = {
   async onSearchInput({ commit, state, dispatch }, query) {
-    commit('setQuery', query);
     if (!query) return dispatch('setTrackList', []);
     if (!state.loading) commit('setLoading', true);
-    if (state.timeout) clearTimeout(state.timeout);
-    const timeout = setTimeout(async () => {
-      const trackList = await getTrackList(state.query);
-      if (timeout === state.timeout) {
-        dispatch(
-          'setTrackList',
-          trackList.filter(track => track.hasLyric),
-        );
-      }
-    }, 200);
-    commit('setTimeout', timeout);
+    const trackList = await getTrackList(query, { hasLyric: true });
+    dispatch('setTrackList', trackList);
   },
   async setTrackList({ commit, state }, trackList) {
     commit('setTrackList', trackList);
     commit('setLoading', false);
-    commit('setTimeout', null);
     clearTimeout(state.timeout);
   },
   async setTrack({ state, commit }, { trackTitle, trackId }) {

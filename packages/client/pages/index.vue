@@ -35,27 +35,34 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-import TrackListItemLoader from '@/components/TrackListItemLoader';
 import TrackListItem from '@/components/TrackListItem';
+import TrackListItemLoader from '@/components/TrackListItemLoader';
+import { debounce } from 'lodash';
+import { mapState } from 'vuex';
 
 export default {
   components: {
     TrackListItemLoader,
     TrackListItem,
   },
+  data() {
+    return {
+      query: '',
+    };
+  },
   computed: {
     numOfLoader() {
       return this.trackList.length || 5;
     },
     ...mapState({
-      query: state => state.tracks.query,
       loading: state => state.tracks.loading,
       trackList: state => state.tracks.trackList,
     }),
   },
   methods: {
-    ...mapActions({ onSearchInput: 'tracks/onSearchInput' }),
+    onSearchInput: debounce(function (query) {
+      this.$store.dispatch('tracks/onSearchInput', query);
+    }, 300),
   },
 };
 </script>

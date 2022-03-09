@@ -41,9 +41,9 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
 import Loader from '@/components/Loader';
 import SizingButton from '@/components/SizingButton';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   components: { SizingButton, Loader },
