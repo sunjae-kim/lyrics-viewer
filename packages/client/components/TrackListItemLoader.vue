@@ -14,8 +14,8 @@
   </v-sheet>
 </template>
 
-<script>
-export default {
-  name: 'TrackListItemLoader',
-};
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({ name: 'TrackListItemLoader' });
 </script>

@@ -40,21 +40,22 @@
   </v-container>
 </template>
 
-<script>
-import Loader from '@/components/Loader';
-import SizingButton from '@/components/SizingButton';
+<script lang="ts">
+import Loader from '@/components/Loader.vue';
+import SizingButton from '@/components/SizingButton.vue';
+import type { TrackState } from '@/store/tracks';
 import { mapGetters, mapState } from 'vuex';
 
 export default {
   components: { SizingButton, Loader },
-  async created() {
+  async created(this: Vue) {
     const { trackTitle, trackId } = this.$route.params;
     this.$store.dispatch('tracks/setTrack', { trackTitle, trackId });
   },
   computed: {
-    ...mapState({
-      track: state => state.tracks.currentTrack,
-      loading: state => state.tracks.loading,
+    ...mapState('tracks', {
+      track: state => (state as TrackState).currentTrack,
+      loading: state => (state as TrackState).loading,
     }),
     ...mapGetters({ style: 'sizes/style' }),
   },

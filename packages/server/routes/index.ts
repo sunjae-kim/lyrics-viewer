@@ -1,5 +1,5 @@
 import express from 'express';
-import VibeAPI from '../libraries/vibe';
+import VibeAPI from '@/libraries/vibe';
 const router = express.Router();
 
 router.get('/tracks', async (req, res) => {

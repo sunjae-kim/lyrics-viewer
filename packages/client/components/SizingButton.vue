@@ -57,10 +57,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { SizeState } from '@/store/sizes';
+import Vue from 'vue';
 import { mapMutations, mapGetters, mapState } from 'vuex';
 
-export default {
+export default Vue.extend({
   name: 'SizingButtons',
   data() {
     return {
@@ -68,10 +70,9 @@ export default {
     };
   },
   computed: {
-    ...mapState({
-      track: state => state.tracks.currentTrack,
-      fontSize: state => state.sizes.fontSize,
-      marginBottom: state => state.sizes.marginBottom,
+    ...mapState('sizes', {
+      fontSize: state => (state as SizeState).fontSize,
+      marginBottom: state => (state as SizeState).marginBottom,
     }),
     ...mapGetters({
       isMobile: 'sizes/isMobile',
@@ -83,7 +84,7 @@ export default {
       setMarginBottom: 'sizes/setMarginBottom',
     }),
   },
-};
+});
 </script>
 
 <style>

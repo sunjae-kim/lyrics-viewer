@@ -1,6 +1,7 @@
-import _ from 'lodash';
+import { Track, TrackInfo } from '#/types/vibe';
+import { VibeAPI, VibeAPIResponse } from '@/libraries/vibe/type';
 import axios from 'axios';
-import { Track, TrackInfo, VibeAPI, VibeAPIResponse } from './type';
+import _ from 'lodash';
 
 const API_URL = 'https://apis.naver.com/vibeWeb/musicapiweb';
 
