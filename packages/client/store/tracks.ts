@@ -1,12 +1,20 @@
-import { getTrackList, getTrackInfo, getTrack } from '@/api';
+import { Track } from '#/types/vibe';
+import VibeAPI from '@/api';
+import { ActionTree, MutationTree } from 'vuex';
 
-export const state = () => ({
+export type TrackState = {
+  currentTrack: { info: null | Track; lyrics: null };
+  trackList: Track[];
+  loading: boolean;
+};
+
+export const state = (): TrackState => ({
   currentTrack: { info: null, lyrics: null },
   trackList: [],
   loading: false,
 });
 
-export const mutations = {
+export const mutations: MutationTree<TrackState> = {
   setCurrentTrack(state, track) {
     state.currentTrack = track;
   },
@@ -18,22 +26,21 @@ export const mutations = {
   },
 };
 
-export const actions = {
+export const actions: ActionTree<TrackState, TrackState> = {
   async onSearchInput({ commit, state, dispatch }, query) {
     if (!query) return dispatch('setTrackList', []);
     if (!state.loading) commit('setLoading', true);
-    const trackList = await getTrackList(query, { hasLyric: true });
+    const trackList = await VibeAPI.getTrackList(query, { hasLyric: true });
     dispatch('setTrackList', trackList);
   },
-  async setTrackList({ commit, state }, trackList) {
+  async setTrackList({ commit }, trackList) {
     commit('setTrackList', trackList);
     commit('setLoading', false);
-    clearTimeout(state.timeout);
   },
   async setTrack({ state, commit }, { trackTitle, trackId }) {
     if (!state.loading) commit('setLoading', true);
-    const info = await getTrack(trackTitle, trackId);
-    const lyrics = await getTrackInfo(trackId);
+    const info = await VibeAPI.getTrack(trackTitle, trackId);
+    const lyrics = await VibeAPI.getTrackInfo(trackId);
     commit('setCurrentTrack', { info, lyrics });
     commit('setLoading', false);
   },

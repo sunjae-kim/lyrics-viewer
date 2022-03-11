@@ -20,18 +20,21 @@
   </v-card>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import type { Track } from '#/types/vibe';
+import Vue, { PropType } from 'vue';
+
+export default Vue.extend({
   name: 'TrackListItem',
-  props: { track: Object },
+  props: { track: Object as PropType<Track> },
   methods: {
-    onClick: function () {
+    onClick() {
       const { trackId } = this.track;
       const trackTitle = this.track.trackTitle.replace(/\?/g, '');
       this.$router.push(`/${trackTitle}/${trackId}`);
     },
   },
-};
+});
 </script>
 
 <style>

@@ -34,37 +34,34 @@
   </v-container>
 </template>
 
-<script>
-import TrackListItem from '@/components/TrackListItem';
-import TrackListItemLoader from '@/components/TrackListItemLoader';
+<script lang="ts">
+import TrackListItem from '@/components/TrackListItem.vue';
+import TrackListItemLoader from '@/components/TrackListItemLoader.vue';
+import type { TrackState } from '@/store/tracks';
 import { debounce } from 'lodash';
+import Vue from 'vue';
 import { mapState } from 'vuex';
 
-export default {
-  components: {
-    TrackListItemLoader,
-    TrackListItem,
-  },
+export default Vue.extend({
+  components: { TrackListItemLoader, TrackListItem },
   data() {
-    return {
-      query: '',
-    };
+    return { query: '' };
   },
   computed: {
     numOfLoader() {
       return this.trackList.length || 5;
     },
-    ...mapState({
-      loading: state => state.tracks.loading,
-      trackList: state => state.tracks.trackList,
+    ...mapState('tracks', {
+      loading: state => (state as TrackState).loading,
+      trackList: state => (state as TrackState).trackList,
     }),
   },
   methods: {
-    onSearchInput: debounce(function (query) {
+    onSearchInput: debounce(function (this: Vue, query: string) {
       this.$store.dispatch('tracks/onSearchInput', query);
     }, 300),
   },
-};
+});
 </script>
 
 <style>

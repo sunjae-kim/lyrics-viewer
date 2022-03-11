@@ -4,10 +4,10 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Loader',
-};
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({ name: 'Loader' });
 </script>
 
 <style>

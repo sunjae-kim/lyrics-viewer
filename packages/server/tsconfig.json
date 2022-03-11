@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "allowJs": true,
     "paths": {
+      "@/*": ["./*"],
       "#/*": ["../shared/*"]
     }
   },

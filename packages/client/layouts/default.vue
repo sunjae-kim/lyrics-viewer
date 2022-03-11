@@ -5,11 +5,12 @@
   </v-app>
 </template>
 
-<script>
-import Loader from '@/components/Loader';
+<script lang="ts">
+import Loader from '@/components/Loader.vue';
+import Vue from 'vue';
 import { mapActions } from 'vuex';
 
-export default {
+export default Vue.extend({
   components: { Loader },
   data() {
     return { isMounted: false };
@@ -21,7 +22,7 @@ export default {
     this.onResize();
     this.isMounted = true;
   },
-};
+});
 </script>
 
 <style>

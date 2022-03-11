@@ -1,13 +1,14 @@
+import { ActionTree, GetterTree, MutationTree } from 'vuex';
+
 export const state = () => ({
-  windowSize: {
-    x: 0,
-    y: 0,
-  },
+  windowSize: { x: 0, y: 0 },
   fontSize: 0,
   marginBottom: 0,
 });
 
-export const getters = {
+export type SizeState = ReturnType<typeof state>;
+
+export const getters: GetterTree<SizeState, SizeState> = {
   style: state => ({
     fontSize: 1 + state.fontSize * 0.015 + 'rem!important',
     marginBottom: 2.5 + state.marginBottom * 0.1 + 'rem!important',
@@ -15,7 +16,7 @@ export const getters = {
   isMobile: state => state.windowSize.x < 768,
 };
 
-export const mutations = {
+export const mutations: MutationTree<SizeState> = {
   setWindowSize(state, windowSize) {
     state.windowSize = windowSize;
   },
@@ -27,7 +28,7 @@ export const mutations = {
   },
 };
 
-export const actions = {
+export const actions: ActionTree<SizeState, SizeState> = {
   onResize({ commit }) {
     commit('setWindowSize', { x: window.innerWidth, y: window.innerHeight });
   },

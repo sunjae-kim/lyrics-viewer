@@ -1,5 +1,5 @@
-import colors from 'vuetify/es5/util/colors';
 import * as path from 'path';
+import colors from 'vuetify/es5/util/colors';
 const { NODE_ENV } = process.env;
 console.log(`current env: ${NODE_ENV}`);
 
@@ -39,7 +39,7 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: ['@nuxtjs/vuetify'],
+  buildModules: ['@nuxtjs/vuetify', '@nuxt/typescript-build'],
   /*
    ** Nuxt.js modules
    */
