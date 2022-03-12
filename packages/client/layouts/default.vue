@@ -7,20 +7,22 @@
 
 <script lang="ts">
 import Loader from '@/components/Loader.vue';
+import { debounce } from 'lodash';
 import Vue from 'vue';
-import { mapActions } from 'vuex';
 
 export default Vue.extend({
   components: { Loader },
   data() {
     return { isMounted: false };
   },
-  methods: {
-    ...mapActions({ onResize: 'sizes/onResize' }),
-  },
   mounted() {
     this.onResize();
     this.isMounted = true;
+  },
+  methods: {
+    onResize: debounce(function (this: Vue) {
+      this.$store.dispatch('sizes/onResize');
+    }, 200),
   },
 });
 </script>

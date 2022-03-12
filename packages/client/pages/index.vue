@@ -4,10 +4,9 @@
       <div style="width: 726px">
         <v-text-field
           class="mt-7"
-          id="search-input"
           label="가수 및 노래 제목으로 검색"
+          v-model="query"
           @input="onSearchInput"
-          :value="query"
           :loading="loading"
           clearable
         ></v-text-field>
@@ -28,7 +27,7 @@
       ></TrackListItem>
     </section>
     <section v-else>
-      <p v-if="query.length">검색 결과가 없습니다.. 😢</p>
+      <p v-if="query && query.length">검색 결과가 없습니다.. 😢</p>
       <p v-else>입력창에 검색어를 입력해주세요 😀</p>
     </section>
   </v-container>
@@ -40,7 +39,6 @@ import TrackListItemLoader from '@/components/TrackListItemLoader.vue';
 import type { TrackState } from '@/store/tracks';
 import { debounce } from 'lodash';
 import Vue from 'vue';
-import { mapState } from 'vuex';
 
 export default Vue.extend({
   components: { TrackListItemLoader, TrackListItem },
@@ -51,10 +49,12 @@ export default Vue.extend({
     numOfLoader() {
       return this.trackList.length || 5;
     },
-    ...mapState('tracks', {
-      loading: state => (state as TrackState).loading,
-      trackList: state => (state as TrackState).trackList,
-    }),
+    trackList(this: Vue): TrackState['trackList'] {
+      return this.$store.state.tracks.trackList;
+    },
+    loading(this: Vue): TrackState['loading'] {
+      return this.$store.state.tracks.loading;
+    },
   },
   methods: {
     onSearchInput: debounce(function (this: Vue, query: string) {

@@ -44,7 +44,7 @@
 import Loader from '@/components/Loader.vue';
 import SizingButton from '@/components/SizingButton.vue';
 import type { TrackState } from '@/store/tracks';
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   components: { SizingButton, Loader },
@@ -53,11 +53,13 @@ export default {
     this.$store.dispatch('tracks/setTrack', { trackTitle, trackId });
   },
   computed: {
-    ...mapState('tracks', {
-      track: state => (state as TrackState).currentTrack,
-      loading: state => (state as TrackState).loading,
-    }),
     ...mapGetters({ style: 'sizes/style' }),
+    track(this: Vue): TrackState['currentTrack'] {
+      return this.$store.state.tracks.currentTrack;
+    },
+    loading(this: Vue): TrackState['loading'] {
+      return this.$store.state.tracks.loading;
+    },
   },
 };
 </script>
