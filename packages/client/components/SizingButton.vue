@@ -60,7 +60,7 @@
 <script lang="ts">
 import { SizeState } from '@/store/sizes';
 import Vue from 'vue';
-import { mapMutations, mapGetters, mapState } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 
 export default Vue.extend({
   name: 'SizingButtons',
@@ -70,13 +70,14 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapState('sizes', {
-      fontSize: state => (state as SizeState).fontSize,
-      marginBottom: state => (state as SizeState).marginBottom,
-    }),
-    ...mapGetters({
-      isMobile: 'sizes/isMobile',
-    }),
+    ...mapGetters({ isMobile: 'sizes/isMobile' }),
+    track(this: Vue): SizeState['fontSize'] {
+      const { fontSize } = this.$store.state.sizes;
+      return fontSize;
+    },
+    marginBottom(this: Vue): SizeState['marginBottom'] {
+      return this.$store.state.sizes.marginBottom;
+    },
   },
   methods: {
     ...mapMutations({
