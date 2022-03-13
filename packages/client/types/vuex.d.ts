@@ -2,6 +2,7 @@ import { SizeState } from '@/store/sizes';
 import { TrackState } from '@/store/tracks';
 import Vue from 'vue';
 import { Store } from 'vuex';
+import { Framework } from 'vuetify';
 
 type RootState = {
   sizes: SizeState;
@@ -19,5 +20,6 @@ declare module 'vue/types/options' {
 declare module 'vue/types/vue' {
   interface Vue {
     $store: Store<RootState>;
+    $vuetify: Framework;
   }
 }
