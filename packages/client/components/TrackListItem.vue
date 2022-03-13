@@ -1,5 +1,5 @@
 <template>
-  <v-card @click="onClick" dark class="mb-3 track-list-item">
+  <v-card @click="onClick" :dark="isDarkMode" class="mb-3 track-list-item">
     <div class="d-flex flex-no-wrap">
       <v-avatar class="ma-3" size="125" tile>
         <v-img :src="track.album.imageUrl"></v-img>
@@ -27,6 +27,11 @@ import Vue, { PropType } from 'vue';
 export default Vue.extend({
   name: 'TrackListItem',
   props: { track: Object as PropType<Track> },
+  data() {
+    return {
+      isDarkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
+    };
+  },
   methods: {
     onClick() {
       const { trackId } = this.track;

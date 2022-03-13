@@ -15,6 +15,13 @@ export default Vue.extend({
   data() {
     return { isMounted: false };
   },
+  created() {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    this.$vuetify.theme.dark = mediaQuery.matches;
+    mediaQuery.addEventListener('change', () => {
+      this.$vuetify.theme.dark = mediaQuery.matches;
+    });
+  },
   mounted() {
     this.onResize();
     this.isMounted = true;

@@ -1,6 +1,6 @@
 <template>
   <div class="sizing-btns" @click="sheet = !sheet">
-    <v-btn :small="isMobile" dark fab>
+    <v-btn :small="isMobile" :dark="isDarkMode" fab>
       <v-icon :small="isMobile">mdi-format-letter-case</v-icon>
     </v-btn>
     <v-bottom-sheet v-model="sheet">
@@ -11,7 +11,7 @@
             <v-btn
               @click="fontSize > -20 && setFontSize(fontSize - 5)"
               :small="isMobile"
-              dark
+              :dark="isDarkMode"
               fab
             >
               <v-icon :small="!isMobile" :x-small="isMobile"
@@ -22,7 +22,7 @@
               :class="{ 'ml-3': !isMobile }"
               @click="fontSize < 20 && setFontSize(fontSize + 5)"
               :small="isMobile"
-              dark
+              :dark="isDarkMode"
               fab
             >
               <v-icon :small="isMobile">mdi-format-letter-case</v-icon>
@@ -34,7 +34,7 @@
             <v-btn
               @click="marginBottom > -20 && setMarginBottom(marginBottom - 5)"
               :small="isMobile"
-              dark
+              :dark="isDarkMode"
               fab
             >
               <v-icon :small="!isMobile" :x-small="isMobile"
@@ -45,7 +45,7 @@
               :class="{ 'ml-3': !isMobile }"
               @click="marginBottom < 20 && setMarginBottom(marginBottom + 5)"
               :small="isMobile"
-              dark
+              :dark="isDarkMode"
               fab
             >
               <v-icon :small="isMobile">mdi-format-line-spacing</v-icon>
@@ -67,13 +67,14 @@ export default Vue.extend({
   data() {
     return {
       sheet: false,
+      isDarkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
     };
   },
   computed: {
     ...mapGetters({ isMobile: 'sizes/isMobile' }),
-    track(this: Vue): SizeState['fontSize'] {
+    fontSize(this: Vue): SizeState['fontSize'] {
       const { fontSize } = this.$store.state.sizes;
-      return fontSize;
+      return this.$store.state.sizes.fontSize;
     },
     marginBottom(this: Vue): SizeState['marginBottom'] {
       return this.$store.state.sizes.marginBottom;

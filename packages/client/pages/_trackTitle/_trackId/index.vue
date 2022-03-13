@@ -20,10 +20,13 @@
     </v-app-bar>
 
     <Loader v-if="loading" />
-    <div v-else-if="!track.info.isAdult" :style="{ fontSize: style.fontSize }">
+    <div
+      class="lyrics"
+      v-else-if="!track.info.isAdult"
+      :style="{ fontSize: style.fontSize }"
+    >
       <p
         v-for="(line, index) in track.lyrics.lyric.split('\n')"
-        class="lyrics"
         :key="`${index}|${line}`"
         :style="{ marginBottom: style.marginBottom }"
       >
@@ -70,11 +73,11 @@ export default {
   margin: 0;
 }
 
-.lyrics,
-.alert {
+.lyrics > p,
+.alert > p {
   font-family: sans-serif;
-  color: rgba(255, 255, 255, 0.8);
   word-break: keep-all;
+  opacity: 0.8;
 }
 
 .alert {
