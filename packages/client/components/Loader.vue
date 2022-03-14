@@ -1,8 +1,11 @@
 <template>
-  <div class="loader" :style="{ background: isDarkMode ? 'black' : 'white' }">
+  <div
+    class="loader"
+    :style="{ background: $vuetify.theme.dark ? 'black' : 'white' }"
+  >
     <v-progress-circular
       :size="50"
-      :color="isDarkMode ? '#f0f0f0' : '#333'"
+      :color="$vuetify.theme.dark ? '#f0f0f0' : '#333'"
       indeterminate
     />
   </div>
@@ -13,11 +16,6 @@ import Vue from 'vue';
 
 export default Vue.extend({
   name: 'Loader',
-  data() {
-    return {
-      isDarkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
-    };
-  },
 });
 </script>
 
