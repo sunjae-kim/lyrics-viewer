@@ -1,17 +1,17 @@
 <template>
   <div class="sizing-btns" @click="sheet = !sheet">
-    <v-btn :small="isMobile" :dark="isDarkMode" fab>
+    <v-btn :small="isMobile" :dark="$vuetify.theme.dark" fab>
       <v-icon :small="isMobile">mdi-format-letter-case</v-icon>
     </v-btn>
     <v-bottom-sheet v-model="sheet">
       <v-sheet class="text-center" height="11rem">
         <v-row class="pt-3">
           <v-col>
-            <h3 class="py-3">Text Size</h3>
+            <h4 class="py-3">Text Size</h4>
             <v-btn
               @click="fontSize > -20 && setFontSize(fontSize - 5)"
               :small="isMobile"
-              :dark="isDarkMode"
+              :dark="$vuetify.theme.dark"
               fab
             >
               <v-icon :small="!isMobile" :x-small="isMobile"
@@ -22,7 +22,7 @@
               :class="{ 'ml-3': !isMobile }"
               @click="fontSize < 20 && setFontSize(fontSize + 5)"
               :small="isMobile"
-              :dark="isDarkMode"
+              :dark="$vuetify.theme.dark"
               fab
             >
               <v-icon :small="isMobile">mdi-format-letter-case</v-icon>
@@ -30,11 +30,11 @@
           </v-col>
 
           <v-col>
-            <h3 class="py-3">Line Spacing</h3>
+            <h4 class="py-3">Line Spacing</h4>
             <v-btn
               @click="marginBottom > -20 && setMarginBottom(marginBottom - 5)"
               :small="isMobile"
-              :dark="isDarkMode"
+              :dark="$vuetify.theme.dark"
               fab
             >
               <v-icon :small="!isMobile" :x-small="isMobile"
@@ -45,10 +45,22 @@
               :class="{ 'ml-3': !isMobile }"
               @click="marginBottom < 20 && setMarginBottom(marginBottom + 5)"
               :small="isMobile"
-              :dark="isDarkMode"
+              :dark="$vuetify.theme.dark"
               fab
             >
               <v-icon :small="isMobile">mdi-format-line-spacing</v-icon>
+            </v-btn>
+          </v-col>
+
+          <v-col>
+            <h4 class="py-3">Change Mode</h4>
+            <v-btn
+              @click="toggleDarkMode"
+              :small="isMobile"
+              :dark="$vuetify.theme.dark"
+              fab
+            >
+              <v-icon :small="isMobile">mdi-theme-light-dark</v-icon>
             </v-btn>
           </v-col>
         </v-row>
@@ -65,10 +77,7 @@ import { mapMutations, mapGetters } from 'vuex';
 export default Vue.extend({
   name: 'SizingButtons',
   data() {
-    return {
-      sheet: false,
-      isDarkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
-    };
+    return { sheet: false };
   },
   computed: {
     ...mapGetters({ isMobile: 'sizes/isMobile' }),
@@ -85,6 +94,9 @@ export default Vue.extend({
       setFontSize: 'sizes/setFontSize',
       setMarginBottom: 'sizes/setMarginBottom',
     }),
+    toggleDarkMode() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+    },
   },
 });
 </script>
