@@ -5,7 +5,7 @@
         <v-text-field
           class="mt-7"
           label="가수 및 노래 제목으로 검색"
-          v-model="query"
+          :value="query"
           @input="onSearchInput"
           :loading="loading"
           clearable
@@ -36,14 +36,17 @@
 <script lang="ts">
 import TrackListItem from '@/components/TrackListItem.vue';
 import TrackListItemLoader from '@/components/TrackListItemLoader.vue';
+import { localStorageState } from '@/store';
 import type { TrackState } from '@/store/tracks';
 import { debounce } from 'lodash';
 import Vue from 'vue';
 
 export default Vue.extend({
   components: { TrackListItemLoader, TrackListItem },
-  data() {
-    return { query: '' };
+  mounted() {
+    if (localStorageState.query) {
+      this.$store.dispatch('tracks/onSearchInput', localStorageState.query);
+    }
   },
   computed: {
     numOfLoader() {
@@ -55,9 +58,13 @@ export default Vue.extend({
     loading(this: Vue): TrackState['loading'] {
       return this.$store.state.tracks.loading;
     },
+    query() {
+      return localStorageState.query;
+    },
   },
   methods: {
     onSearchInput: debounce(function (this: Vue, query: string) {
+      localStorageState.query = query;
       this.$store.dispatch('tracks/onSearchInput', query);
     }, 300),
   },

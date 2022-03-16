@@ -12,6 +12,7 @@
     "deploy": "yarn generate && firebase deploy --only hosting"
   },
   "dependencies": {
+    "@nuxtjs/composition-api": "^0.32.0",
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
     "axios": "^0.21.2",
