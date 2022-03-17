@@ -62,6 +62,14 @@
             >
               <v-icon :small="isMobile">mdi-theme-light-dark</v-icon>
             </v-btn>
+            <v-btn
+              @click="setAutoMode"
+              :small="isMobile"
+              :dark="$vuetify.theme.dark"
+              fab
+            >
+              auto
+            </v-btn>
           </v-col>
         </v-row>
       </v-sheet>
@@ -70,6 +78,7 @@
 </template>
 
 <script lang="ts">
+import { localStorageState } from '@/store';
 import { SizeState } from '@/store/sizes';
 import Vue from 'vue';
 import { mapMutations, mapGetters } from 'vuex';
@@ -95,7 +104,14 @@ export default Vue.extend({
       setMarginBottom: 'sizes/setMarginBottom',
     }),
     toggleDarkMode() {
+      localStorageState.theme = this.$vuetify.theme.dark ? 'light' : 'dark';
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+    },
+    setAutoMode() {
+      localStorageState.theme = 'auto';
+      this.$vuetify.theme.dark = window.matchMedia(
+        '(prefers-color-scheme: dark)',
+      ).matches;
     },
   },
 });
