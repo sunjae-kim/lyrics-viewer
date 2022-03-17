@@ -7,6 +7,7 @@
 
 <script lang="ts">
 import Loader from '@/components/Loader.vue';
+import { localStorageState } from '@/store';
 import { debounce } from 'lodash';
 import Vue from 'vue';
 
@@ -17,10 +18,25 @@ export default Vue.extend({
   },
   created() {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    this.$vuetify.theme.dark = mediaQuery.matches;
     mediaQuery.addEventListener('change', () => {
+      if (localStorageState.theme !== 'auto') return;
       this.$vuetify.theme.dark = mediaQuery.matches;
     });
+
+    switch (localStorageState.theme) {
+      case 'auto': {
+        this.$vuetify.theme.dark = mediaQuery.matches;
+        return;
+      }
+      case 'light': {
+        this.$vuetify.theme.dark = false;
+        return;
+      }
+      case 'dark': {
+        this.$vuetify.theme.dark = true;
+        return;
+      }
+    }
   },
   mounted() {
     this.onResize();
