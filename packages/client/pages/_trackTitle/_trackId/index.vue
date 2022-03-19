@@ -38,19 +38,16 @@
       <p>현재 지원하지 않습니다 😭</p>
       <p class="mt-4"><a @click="$router.push('/')">돌아가기</a></p>
     </div>
-
-    <SizingButton />
   </v-container>
 </template>
 
 <script lang="ts">
 import Loader from '@/components/Loader.vue';
-import SizingButton from '@/components/SizingButton.vue';
 import type { TrackState } from '@/store/tracks';
 import { mapGetters } from 'vuex';
 
 export default {
-  components: { SizingButton, Loader },
+  components: { Loader },
   async created(this: Vue) {
     const { trackTitle, trackId } = this.$route.params;
     this.$store.dispatch('tracks/setTrack', { trackTitle, trackId });

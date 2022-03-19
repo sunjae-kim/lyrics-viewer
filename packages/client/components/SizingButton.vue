@@ -1,12 +1,12 @@
 <template>
   <div class="sizing-btns" @click="sheet = !sheet">
     <v-btn :small="isMobile" :dark="$vuetify.theme.dark" fab>
-      <v-icon :small="isMobile">mdi-format-letter-case</v-icon>
+      <v-icon :small="isMobile">mdi-tune</v-icon>
     </v-btn>
     <v-bottom-sheet v-model="sheet">
       <v-sheet class="text-center" height="11rem">
         <v-row class="pt-3">
-          <v-col>
+          <v-col v-if="onLyricsViewer">
             <h4 class="py-3">Text Size</h4>
             <v-btn
               @click="fontSize > -20 && setFontSize(fontSize - 5)"
@@ -29,7 +29,7 @@
             </v-btn>
           </v-col>
 
-          <v-col>
+          <v-col v-if="onLyricsViewer">
             <h4 class="py-3">Line Spacing</h4>
             <v-btn
               @click="marginBottom > -20 && setMarginBottom(marginBottom - 5)"
@@ -84,6 +84,9 @@ import Vue from 'vue';
 import { mapMutations, mapGetters } from 'vuex';
 
 export default Vue.extend({
+  mounted() {
+    console.log(this.$route);
+  },
   name: 'SizingButtons',
   data() {
     return { sheet: false };
@@ -96,6 +99,9 @@ export default Vue.extend({
     },
     marginBottom(this: Vue): SizeState['marginBottom'] {
       return this.$store.state.sizes.marginBottom;
+    },
+    onLyricsViewer() {
+      return !!this.$route.params.trackId;
     },
   },
   methods: {
@@ -124,7 +130,8 @@ export default Vue.extend({
   flex-flow: column;
   align-items: center;
   position: fixed;
-  bottom: 10px;
+  bottom: 20px;
+  left: 20px;
   z-index: 5;
 }
 </style>
