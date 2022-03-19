@@ -2,17 +2,19 @@
   <v-app v-resize="onResize">
     <nuxt v-if="isMounted" />
     <Loader v-else />
+    <SizingButton />
   </v-app>
 </template>
 
 <script lang="ts">
 import Loader from '@/components/Loader.vue';
+import SizingButton from '@/components/SizingButton.vue';
 import { localStorageState } from '@/store';
 import { debounce } from 'lodash';
 import Vue from 'vue';
 
 export default Vue.extend({
-  components: { Loader },
+  components: { Loader, SizingButton },
   data() {
     return { isMounted: false };
   },
