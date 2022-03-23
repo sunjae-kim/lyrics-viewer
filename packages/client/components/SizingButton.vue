@@ -1,7 +1,7 @@
 <template>
   <div class="sizing-btns" @click="sheet = !sheet">
     <v-btn :small="isMobile" :dark="$vuetify.theme.dark" fab>
-      <v-icon :small="isMobile">mdi-tune</v-icon>
+      <v-icon :small="isMobile">mdi-cog</v-icon>
     </v-btn>
     <v-bottom-sheet v-model="sheet">
       <v-sheet class="text-center" height="11rem">
