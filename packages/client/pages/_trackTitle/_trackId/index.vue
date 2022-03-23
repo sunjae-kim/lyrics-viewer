@@ -1,9 +1,12 @@
 <template>
   <v-container class="track-detail text-center">
     <v-app-bar fixed>
+      <v-btn @click="$router.push('/')" icon>
+        <v-icon>mdi-arrow-left</v-icon>
+      </v-btn>
       <v-skeleton-loader v-if="loading" width="300" type="sentences" />
-      <v-toolbar-title v-else
-        ><span>{{ track.info.trackTitle }}</span>
+      <v-toolbar-title v-else>
+        <span>{{ track.info.trackTitle }}</span>
         <span class="mx-2">-</span>
         <span
           v-for="artist in track.info.artists"
@@ -14,9 +17,6 @@
         </span></v-toolbar-title
       >
       <v-spacer></v-spacer>
-      <v-btn @click="$router.push('/')" icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
     </v-app-bar>
 
     <Loader v-if="loading" />
