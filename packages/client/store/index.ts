@@ -1,6 +1,16 @@
 import { localStorageInterface } from '@/utils';
 
-export const localStorageState = localStorageInterface('dsha323', {
-  theme: 'auto' as 'auto' | 'dark' | 'light',
-  query: '',
-});
+type LocalStorageState = {
+  theme: 'auto' | 'dark' | 'light';
+  query: string;
+  searchHistory: string[];
+};
+
+export const localStorageState = localStorageInterface<LocalStorageState>(
+  'ejd73h2sd',
+  {
+    theme: 'auto',
+    query: '',
+    searchHistory: [],
+  },
+);

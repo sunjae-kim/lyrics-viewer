@@ -26,6 +26,7 @@
 
 <script lang="ts">
 import type { Track } from '#/types/vibe';
+import { localStorageState } from '@/store';
 import Vue, { PropType } from 'vue';
 
 export default Vue.extend({
@@ -36,6 +37,8 @@ export default Vue.extend({
       const { trackId } = this.track;
       const trackTitle = this.track.trackTitle.replace(/\?/g, '');
       this.$router.push(`/${trackTitle}/${trackId}`);
+      const { searchHistory, query } = localStorageState;
+      searchHistory.push(query);
     },
   },
 });
