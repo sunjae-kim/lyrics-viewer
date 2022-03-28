@@ -2,14 +2,16 @@
   <v-container>
     <v-app-bar fixed>
       <div style="width: 726px">
-        <v-text-field
+        <v-combobox
           class="mt-7"
           label="가수 및 노래 제목으로 검색"
           :value="query"
           @input="onSearchInput"
           :loading="loading"
           clearable
-        ></v-text-field>
+          :items="searchHistory"
+          :search-input="query"
+        ></v-combobox>
       </div>
     </v-app-bar>
 
@@ -60,6 +62,9 @@ export default Vue.extend({
     },
     query() {
       return localStorageState.query;
+    },
+    searchHistory() {
+      return localStorageState.searchHistory;
     },
   },
   methods: {

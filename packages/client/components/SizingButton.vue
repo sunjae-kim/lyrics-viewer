@@ -84,9 +84,6 @@ import Vue from 'vue';
 import { mapMutations, mapGetters } from 'vuex';
 
 export default Vue.extend({
-  mounted() {
-    console.log(this.$route);
-  },
   name: 'SizingButtons',
   data() {
     return { sheet: false };
