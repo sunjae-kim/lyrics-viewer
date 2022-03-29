@@ -5,13 +5,23 @@
         <v-combobox
           class="mt-7"
           label="가수 및 노래 제목으로 검색"
-          :value="query"
           @input="onSearchInput"
+          :value="query"
           :loading="loading"
-          clearable
           :items="searchHistory"
           :search-input="query"
-        ></v-combobox>
+          clearable
+        >
+          <template v-slot:item="{ item }">
+            <span>{{ item }}</span>
+            <v-spacer></v-spacer>
+            <v-list-item-action @click.stop="removeTargetFromHistory(item)">
+              <v-btn icon>
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+            </v-list-item-action>
+          </template>
+        </v-combobox>
       </div>
     </v-app-bar>
 
@@ -72,6 +82,11 @@ export default Vue.extend({
       localStorageState.query = query;
       this.$store.dispatch('tracks/onSearchInput', query);
     }, 300),
+    removeTargetFromHistory(history: string) {
+      localStorageState.searchHistory = localStorageState.searchHistory.filter(
+        item => item !== history,
+      );
+    },
   },
 });
 </script>
