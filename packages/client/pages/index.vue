@@ -79,6 +79,7 @@ export default Vue.extend({
   },
   methods: {
     onSearchInput: debounce(function (this: Vue, query: string) {
+      localStorageState.searchHistory.push(query);
       localStorageState.query = query;
       this.$store.dispatch('tracks/onSearchInput', query);
     }, 300),
