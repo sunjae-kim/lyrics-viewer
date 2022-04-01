@@ -8,12 +8,15 @@
           @input="onSearchInput"
           :value="query"
           :loading="loading"
-          :items="searchHistory"
+          :items="items"
           :search-input="query"
           clearable
         >
           <template v-slot:item="{ item }">
             <span>{{ item }}</span>
+            <span class="ml-2 text--secondary text-caption">{{
+              fromNow(searchHistory[item])
+            }}</span>
             <v-spacer></v-spacer>
             <v-list-item-action @click.stop="removeTargetFromHistory(item)">
               <v-btn icon>
@@ -52,9 +55,15 @@ import { localStorageState } from '@/store';
 import type { TrackState } from '@/store/tracks';
 import { debounce } from 'lodash';
 import Vue from 'vue';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 export default Vue.extend({
   components: { TrackListItemLoader, TrackListItem },
+  created() {
+    dayjs.locale('ko');
+    dayjs.extend(relativeTime);
+  },
   mounted() {
     if (localStorageState.query) {
       this.$store.dispatch('tracks/onSearchInput', localStorageState.query);
@@ -73,20 +82,35 @@ export default Vue.extend({
     query() {
       return localStorageState.query;
     },
+    items() {
+      return Object.keys(localStorageState.searchHistory);
+    },
     searchHistory() {
       return localStorageState.searchHistory;
     },
   },
   methods: {
     onSearchInput: debounce(function (this: Vue, query: string) {
-      localStorageState.searchHistory.push(query);
+      if (query) {
+        localStorageState.searchHistory = {
+          ...localStorageState.searchHistory,
+          [query]: Date.now(),
+        };
+      }
       localStorageState.query = query;
       this.$store.dispatch('tracks/onSearchInput', query);
     }, 300),
-    removeTargetFromHistory(history: string) {
-      localStorageState.searchHistory = localStorageState.searchHistory.filter(
-        item => item !== history,
-      );
+    removeTargetFromHistory(query: string) {
+      const { searchHistory } = localStorageState;
+      localStorageState.searchHistory = Object.keys(searchHistory)
+        .filter(item => item !== query)
+        .reduce((acc, item) => {
+          acc[item] = searchHistory[item];
+          return acc;
+        }, {} as typeof searchHistory);
+    },
+    fromNow(this: Vue, timestamp: number) {
+      return dayjs(timestamp).fromNow();
     },
   },
 });

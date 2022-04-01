@@ -3,14 +3,14 @@ import { localStorageInterface } from '@/utils';
 type LocalStorageState = {
   theme: 'auto' | 'dark' | 'light';
   query: string;
-  searchHistory: string[];
+  searchHistory: { [query: string]: number };
 };
 
 export const localStorageState = localStorageInterface<LocalStorageState>(
-  'ejd73h2sd',
+  'asenjdsau',
   {
     theme: 'auto',
     query: '',
-    searchHistory: [],
+    searchHistory: {},
   },
 );
