@@ -83,7 +83,9 @@ export default Vue.extend({
       return localStorageState.query;
     },
     items() {
-      return Object.keys(localStorageState.searchHistory);
+      return Object.entries(localStorageState.searchHistory)
+        .sort(([, time], [, time2]) => time2 - time)
+        .map(([key]) => key);
     },
     searchHistory() {
       return localStorageState.searchHistory;
