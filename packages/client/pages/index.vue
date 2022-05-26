@@ -64,11 +64,6 @@ export default Vue.extend({
     dayjs.locale('ko');
     dayjs.extend(relativeTime);
   },
-  mounted() {
-    if (localStorageState.query) {
-      this.$store.dispatch('tracks/onSearchInput', localStorageState.query);
-    }
-  },
   computed: {
     numOfLoader() {
       return this.trackList.length || 5;
@@ -80,7 +75,7 @@ export default Vue.extend({
       return this.$store.state.tracks.loading;
     },
     query() {
-      return localStorageState.query;
+      return ''
     },
     items() {
       return Object.entries(localStorageState.searchHistory)
@@ -99,7 +94,6 @@ export default Vue.extend({
           [query]: Date.now(),
         };
       }
-      localStorageState.query = query;
       this.$store.dispatch('tracks/onSearchInput', query);
     }, 300),
     removeTargetFromHistory(query: string) {
